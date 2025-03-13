@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  morpion:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: morpion_game
+    environment:
+      - DISPLAY=${DISPLAY}        
+      - _JAVA_OPTIONS=-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true  # Améliore le rendu graphique
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    network_mode: "host"     # Permet la communication avec le serveur X11
+    tty: true
+    restart: unless-stopped
